@@ -15,7 +15,7 @@ Proste API CRUD (Create, Read, Update, Delete) z wysyłką maili w Laravel.
 ## Instalacja
 
     ```bash
-    git clone [https://github.com/MaciejSypulski/UserCrudApi.git](https://github.com/MaciejSypulski/UserCrudApi.git)
+    git clone https://github.com/MaciejSypulski/UserCrudApi.git
     cd UserCrudApi
     composer install
     ```
