@@ -30,7 +30,7 @@ class UserApiTest extends TestCase
     {
         $firstName = $this->faker->firstName;
         $lastName = $this->faker->lastName;
-        $phoneNumber = $this->faker->e164PhoneNumber(); // Specyficzny format numeru telefonu
+        $phoneNumber = $this->faker->e164PhoneNumber(); 
         $primaryEmail = $this->faker->unique()->safeEmail;
         $secondaryEmail = $this->faker->unique()->safeEmail;
 
@@ -46,7 +46,7 @@ class UserApiTest extends TestCase
 
         $response = $this->postJson('/api/users', $userData);
 
-        $response->assertStatus(201) // Oczekujemy statusu Created
+        $response->assertStatus(201) 
                  ->assertJson([
                      'data' => [
                          'first_name' => $firstName,
@@ -87,7 +87,7 @@ class UserApiTest extends TestCase
     #[Test]
     public function it_can_get_a_list_of_users()
     {
-        // Stwórz kilku użytkowników z mailami używając fabryk (które w tle używają Fakera)
+        // Stwórz kilku użytkowników z mailami 
         $user1 = User::factory()->create(['first_name' => $this->faker->firstName, 'last_name' => $this->faker->lastName]);
         $user1->emailAddresses()->create(['email' => $this->faker->unique()->safeEmail]);
 
@@ -144,7 +144,7 @@ class UserApiTest extends TestCase
     #[Test]
     public function it_can_update_a_user_and_their_emails()
     {
-        $user = User::factory()->create(); // Stwórz użytkownika przez fabrykę
+        $user = User::factory()->create(); 
         $email1 = $user->emailAddresses()->create(['email' => $this->faker->unique()->safeEmail]);
         $email2 = $user->emailAddresses()->create(['email' => $this->faker->unique()->safeEmail]);
 
@@ -248,9 +248,7 @@ class UserApiTest extends TestCase
     {
         Mail::fake(); // Udawaj wysyłkę maili
 
-        // Stwórz użytkownika z fabryki, która wykorzystuje Fakera
         $user = User::factory()->create();
-        // Stwórz maile dla użytkownika również z Fakera
         $user->emailAddresses()->create(['email' => $this->faker->unique()->safeEmail]);
         $user->emailAddresses()->create(['email' => $this->faker->unique()->safeEmail]);
 
@@ -277,8 +275,9 @@ class UserApiTest extends TestCase
     #[Test]
     public function it_returns_error_if_sending_email_to_user_without_emails()
     {
-        $user = User::factory()->create(); // Stwórz użytkownika bez maili
-        // Nie tworzymy dla niego emailAddresses
+        // Stwórz użytkownika bez maili
+        $user = User::factory()->create(); 
+        
 
         $response = $this->postJson("/api/users/{$user->id}/send-welcome-email");
         $response->assertStatus(400)
